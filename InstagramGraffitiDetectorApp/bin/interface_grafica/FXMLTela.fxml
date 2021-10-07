@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+
+<AnchorPane prefHeight="683.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interface_grafica.FXMLController">
+   <children>
+      <TitledPane fx:id="panelLogin" animated="false" layoutX="14.0" layoutY="34.0" prefHeight="159.0" prefWidth="196.0" text="Login Instagram *">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="133.0" prefWidth="218.0">
+               <children>
+                  <Button fx:id="okLogin" layoutX="81.0" layoutY="100.0" mnemonicParsing="false" onAction="#okLoginAction" text="Ok" />
+                  <PasswordField fx:id="textLoginSenha" layoutX="48.0" layoutY="69.0" prefHeight="25.0" prefWidth="133.0" />
+                  <Label layoutX="7.0" layoutY="73.0" text="Senha" />
+                  <Label layoutX="3.0" layoutY="27.0" text="Usuário" />
+                  <TextField fx:id="textLoginUsuario" layoutX="48.0" layoutY="23.0" prefHeight="13.0" prefWidth="134.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="921.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TitledPane fx:id="panelLocalizacao" animated="false" layoutX="14.0" layoutY="203.0" prefHeight="101.0" prefWidth="196.0" text="Localização *">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="159.0" prefWidth="196.0">
+               <children>
+                  <TextField fx:id="textLocalizacao" layoutX="24.0" layoutY="14.0" />
+                  <Button fx:id="okLocalizacao" layoutX="82.0" layoutY="45.0" mnemonicParsing="false" onAction="#okLocalizacaoAction" text="Ok" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <TitledPane fx:id="panelData" animated="false" layoutX="12.0" layoutY="311.0" prefHeight="159.0" prefWidth="196.0" text="Data">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="204.0">
+               <children>
+                  <ComboBox fx:id="comboData" layoutX="23.0" layoutY="24.0" prefWidth="150.0" />
+                  <Button fx:id="okData" layoutX="82.0" layoutY="100.0" mnemonicParsing="false" onAction="#okDataAction" text="Ok" />
+                  <DatePicker fx:id="dataSelector" layoutX="23.0" layoutY="67.0" prefHeight="15.0" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <TitledPane fx:id="panelTipoEntrada" animated="false" layoutX="12.0" layoutY="479.0" prefHeight="159.0" prefWidth="198.0" text="Hashtag/Perfil *">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="196.0">
+               <children>
+                  <ComboBox fx:id="comboTipoEntrada" layoutX="23.0" layoutY="24.0" prefWidth="150.0" />
+                  <TextField fx:id="textTipoEntrada" layoutX="24.0" layoutY="60.0" />
+                  <Button fx:id="okTipoEntrada" layoutX="83.0" layoutY="94.0" mnemonicParsing="false" onAction="#okTipoEntradaAction" text="Ok" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <Button fx:id="enviarRequisicao" layoutX="160.0" layoutY="644.0" mnemonicParsing="false" onAction="#enviarRequisicaoAction" text="Enviar" />
+      <ScrollPane layoutX="254.0" layoutY="207.0" prefHeight="299.0" prefWidth="354.0">
+         <content>
+            <ImageView fx:id="imageViewPosts" fitHeight="297.0" fitWidth="352.0" pickOnBounds="true" preserveRatio="true" />
+         </content>
+      </ScrollPane>
+      <TitledPane fx:id="panelImagemUsuario" animated="false" layoutX="254.0" layoutY="34.0" prefHeight="159.0" prefWidth="196.0" text="Escolher imagem de comparação *">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="6.0" layoutY="32.0" text="Imagem" />
+                  <Button layoutX="88.0" layoutY="94.0" mnemonicParsing="false" text="Ok" />
+                  <Button fx:id="selecionaImg" layoutX="59.0" layoutY="28.0" mnemonicParsing="false" onAction="#selecionaImgAction" text="Selecionar arquivo..." />
+                  <Label fx:id="nomeImg" alignment="CENTER" layoutX="18.0" layoutY="67.0" prefHeight="17.0" prefWidth="174.0" textAlignment="CENTER" textFill="#41cd44" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <Separator layoutX="227.0" layoutY="27.0" orientation="VERTICAL" prefHeight="655.0" prefWidth="7.0" />
+      <Label layoutX="471.0" layoutY="176.0" text=" * campos obrigatórios " />
+      <TilePane fx:id="panelProcessandoDados" layoutX="482.0" layoutY="44.0" prefHeight="87.0" prefWidth="103.0">
+         <children>
+            <Label text="Processando dados" />
+            <ProgressIndicator fx:id="processandoDadosProgressIndicator" progress="0.0" />
+         </children>
+      </TilePane>
+   </children>
+</AnchorPane>
