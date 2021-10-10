@@ -20,6 +20,7 @@ import java.util.List;
 public class EnviaRequisicaoFlask {
 
     private List<File> imagens;
+    private final String URL_SERVER = "http://192.168.15.10:5000/";
 
     public List<Post> predictImagem(String path) throws IOException {
 
@@ -27,7 +28,7 @@ public class EnviaRequisicaoFlask {
         PreparaImagens preparaImagens = new PreparaImagens();
         setImagens(pegaImagens(path));
         if(getImagens() != null) {
-            HttpPost request = new HttpPost("http://192.168.15.10:5000/predict");
+            HttpPost request = new HttpPost(URL_SERVER+"predict");
             HttpResponse response;
          //   HttpHost target = new HttpHost(request.getURI().getHost(), 5000, "https");
             CloseableHttpClient httpClient = null;
@@ -57,6 +58,7 @@ public class EnviaRequisicaoFlask {
                     System.out.println("Enviado com sucesso");
                     r = new BasicResponseHandler().handleResponse(response);
                     post.setPath(f.getName());
+                    post.setPathAbs(f.getAbsolutePath());
                     post.setTipo(r);
                     posts.add(post);
                 }
@@ -101,7 +103,7 @@ public class EnviaRequisicaoFlask {
         String porcentagens = "Empty";
 
         if(imagem_usuario.exists()) {
-            HttpPost request = new HttpPost("http://192.168.15.10:5000/predict/siamese_model");
+            HttpPost request = new HttpPost(URL_SERVER+"predict/siamese_model");
             HttpResponse response;
             //HttpHost target = new HttpHost(request.getURI().getHost(), 5000, "https");
             CloseableHttpClient httpClient = null;

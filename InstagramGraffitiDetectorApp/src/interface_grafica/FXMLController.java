@@ -1,6 +1,8 @@
 package interface_grafica;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -9,12 +11,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import entidades.Post;
 import instaloader.RequisicaoInstaloader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -22,13 +29,27 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import sistema.InstagramGraffitiDetector;
 
 
@@ -43,8 +64,8 @@ public class FXMLController implements Initializable{
 	
 	ObservableList<String> optionsComboTipoEntrada = 
 		    FXCollections.observableArrayList(
-		        "Hashtag #",
-		        "Perfil @"
+		        "Hashtag",
+		        "Perfil"
 	);
 	
 	@FXML
@@ -54,19 +75,28 @@ public class FXMLController implements Initializable{
     private ComboBox<String> comboTipoEntrada;
     
     @FXML
-    private ProgressIndicator processandoDadosProgressIndicator;
-
-    @FXML
     private DatePicker dataSelector;
 
     @FXML
     private Button enviarRequisicao;
 
     @FXML
-    private Button okData;
+    private Label mensagemData;
 
     @FXML
-    private Button okImagemUsuario;
+    private Label mensagemLocalizacao;
+
+    @FXML
+    private Label mensagemLogin;
+
+    @FXML
+    private Label mensagemTipoEntrada;
+
+    @FXML
+    private Label nomeImg;
+
+    @FXML
+    private Button okData;
 
     @FXML
     private Button okLocalizacao;
@@ -75,13 +105,22 @@ public class FXMLController implements Initializable{
     private Button okLogin;
 
     @FXML
+    private Button okSelecionaImg;
+
+    @FXML
     private Button okTipoEntrada;
 
     @FXML
     private TitledPane panelData;
 
     @FXML
+    private AnchorPane panelDescricao;
+
+    @FXML
     private TitledPane panelImagemUsuario;
+
+    @FXML
+    private TilePane panelImgs;
 
     @FXML
     private TitledPane panelLocalizacao;
@@ -90,13 +129,19 @@ public class FXMLController implements Initializable{
     private TitledPane panelLogin;
 
     @FXML
-    private AnchorPane panelPosts;
+    private ScrollPane panelPosts;
+
+    @FXML
+    private ScrollPane panelScrollText;
 
     @FXML
     private TitledPane panelTipoEntrada;
 
     @FXML
     private Button selecionaImg;
+
+    @FXML
+    private TilePane text;
 
     @FXML
     private TextField textLocalizacao;
@@ -109,13 +154,9 @@ public class FXMLController implements Initializable{
 
     @FXML
     private TextField textTipoEntrada;
-    
-    @FXML
-    private Label nomeImg;
-    
-    @FXML
-    private ImageView imageViewPosts;
-    
+
+    private FileChooser fileChooser;
+    private File file;    
     private InstagramGraffitiDetector instagramGraffitiDetector;
 
     
@@ -129,14 +170,19 @@ public class FXMLController implements Initializable{
 		senha = textLoginSenha.getText();
 		
 		System.out.println("Usuario: " + usuario);
+		mensagemLogin.setText("");
 		System.out.println("Senha: " + senha);
-		
-		textLoginUsuario.clear();
-		textLoginSenha.clear();
 		
 		instagramGraffitiDetector.getRequisicaoInstaloader().getUsuario().setNomePerfil(usuario);
 		instagramGraffitiDetector.getRequisicaoInstaloader().getUsuario().setSenha(senha);
 		System.out.println(instagramGraffitiDetector.getRequisicaoInstaloader().getUsuario().getNomePerfil());
+		
+		mensagemLogin.setTextFill(Color.web("#41cd44"));
+		mensagemLogin.setText("Informações confirmadas!");
+		
+		textLocalizacao.setDisable(false);
+		okLocalizacao.setDisable(false);
+		
 		
 	}
     
@@ -147,14 +193,76 @@ public class FXMLController implements Initializable{
 		String localizacao;
 		
 		localizacao = textLocalizacao.getText();
+		mensagemLocalizacao.setText("");
 		
 		System.out.println("Localizacao: " + localizacao);
 		
-		textLocalizacao.clear();
-		
 		instagramGraffitiDetector.getRequisicaoInstaloader().getLocalizacao().setLocal(localizacao);
+
+		mensagemLocalizacao.setTextFill(Color.web("#41cd44"));
+		mensagemLocalizacao.setText("Informações confirmadas!");
+		
+		comboTipoEntrada.setDisable(false);
+		textTipoEntrada.setDisable(false);
+		okTipoEntrada.setDisable(false);
 		
 	}
+    
+    private void progressIndicator(ActionEvent event) {
+    	
+    	/*final Float[] values = new Float[] {-1.0f, 0f, 0.6f, 1.0f};
+    	final Label [] labels = new Label[values.length];
+    	final ProgressBar[] pbs = new ProgressBar[values.length];
+    	final ProgressIndicator[] pins = new ProgressIndicator[values.length];
+    	
+    	for (int i = 0; i < values.length; i++) {
+            final Label label = labels[i] = new Label();
+            label.setText("progress:" + values[i]);
+ 
+            final ProgressBar pb = pbs[i] = new ProgressBar();
+            pb.setProgress(values[i]);
+ 
+            final ProgressIndicator pin = pins[i] = new ProgressIndicator();
+            pin.setProgress(values[i]);
+            final HBox hb = hbs[i] = new HBox();
+            hb.setSpacing(5);
+            hb.setAlignment(Pos.CENTER);
+            hb.getChildren().addAll(label, pb, pin);
+        }*/
+    }
+    
+    @FXML
+    private void okTipoEntradaAction(ActionEvent event) {
+    	
+    	String tipoEntrada = comboTipoEntrada.getValue();
+    	Integer numTipoEntrada = 0;
+    	String nomeTipoEntrada = null;
+    	
+    	nomeTipoEntrada = textTipoEntrada.getText();
+    	
+    	if (tipoEntrada != null && !tipoEntrada.toString().isEmpty()){
+			if(tipoEntrada.equals("Perfil")) {
+				instagramGraffitiDetector.getRequisicaoInstaloader().getPerfil().setNome(nomeTipoEntrada);
+				numTipoEntrada = 1;
+			}				
+			else { 
+				instagramGraffitiDetector.getRequisicaoInstaloader().getHashtag().setTag(nomeTipoEntrada);
+				numTipoEntrada = 2;			
+			}
+		}      	
+    	System.out.println("Tipo entrada: " + tipoEntrada + ", " + numTipoEntrada.toString());
+		System.out.println("Nome: " + nomeTipoEntrada); 
+		
+		mensagemTipoEntrada.setTextFill(Color.web("#41cd44"));
+    	mensagemTipoEntrada.setText("");
+		mensagemTipoEntrada.setText("Informações confirmadas!");
+		
+		dataSelector.setDisable(false);
+		comboData.setDisable(false);
+		okData.setDisable(false);
+		enviarRequisicao.setDisable(false);
+		
+    }
     
     @FXML
     private void okDataAction(ActionEvent event) {
@@ -190,130 +298,130 @@ public class FXMLController implements Initializable{
         instagramGraffitiDetector.getRequisicaoInstaloader().getData().setMes(mes);
         instagramGraffitiDetector.getRequisicaoInstaloader().getData().setAno(ano);
         instagramGraffitiDetector.getRequisicaoInstaloader().getData().setOperador(numTipoData);
+        
+        mensagemData.setTextFill(Color.web("#41cd44"));
+        mensagemData.setText("Informações confirmadas!");
 				
 	}
     
-    
-    private void progressIndicator(ActionEvent event) {
-    	
-    	/*final Float[] values = new Float[] {-1.0f, 0f, 0.6f, 1.0f};
-    	final Label [] labels = new Label[values.length];
-    	final ProgressBar[] pbs = new ProgressBar[values.length];
-    	final ProgressIndicator[] pins = new ProgressIndicator[values.length];
-    	
-    	for (int i = 0; i < values.length; i++) {
-            final Label label = labels[i] = new Label();
-            label.setText("progress:" + values[i]);
- 
-            final ProgressBar pb = pbs[i] = new ProgressBar();
-            pb.setProgress(values[i]);
- 
-            final ProgressIndicator pin = pins[i] = new ProgressIndicator();
-            pin.setProgress(values[i]);
-            final HBox hb = hbs[i] = new HBox();
-            hb.setSpacing(5);
-            hb.setAlignment(Pos.CENTER);
-            hb.getChildren().addAll(label, pb, pin);
-        }*/
-    }
-    
-    @FXML
-    private void okTipoEntradaAction(ActionEvent event) {
-    	
-    	String tipoEntrada = comboTipoEntrada.getValue();
-    	Integer numTipoEntrada = 0;
-    	String nomeTipoEntrada = null;
-    	
-    	nomeTipoEntrada = textTipoEntrada.getText();
-    	
-    	if (tipoEntrada != null && !tipoEntrada.toString().isEmpty()){
-			if(tipoEntrada.equals("Perfil @")) {
-				instagramGraffitiDetector.getRequisicaoInstaloader().getPerfil().setNome(nomeTipoEntrada);
-				numTipoEntrada = 1;
-			}				
-			else { 
-				instagramGraffitiDetector.getRequisicaoInstaloader().getHashtag().setTag(nomeTipoEntrada);
-				numTipoEntrada = 2;			
-			}
-		}      	
-    	System.out.println("Tipo entrada: " + tipoEntrada + ", " + numTipoEntrada.toString());
-    	    			
-    	
-		
-		System.out.println("Nome: " + nomeTipoEntrada); 
-    }
-    
     @FXML
     private void enviarRequisicaoAction(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.WARNING);
+    	List<Post> posts;
+    	
     	try {
-			instagramGraffitiDetector.detector();
+    		
+        	alert.setTitle("Acessando o Instagram...");
+        	alert.setHeaderText("Sistema filtrando postagens!");
+        	alert.setContentText("Por favor, aguarde...");
+        	alert.showAndWait();
+        	
+			posts = instagramGraffitiDetector.detector();
+			
+			Alert alert2 = new Alert(AlertType.CONFIRMATION);
+	    	alert2.setTitle("Informações baixadas!");
+	    	alert2.setHeaderText("Sistema concluiu filtragem das postagens!");
+	    	alert2.setContentText("Pronto para continuar...");
+	    	alert2.showAndWait();
+	    	
+	    	//displayImages(posts);
+	    	selecionaImg.setDisable(false);
+	    	okSelecionaImg.setDisable(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}    	
+		}     	
+    	
     }
     
     @FXML
-    private String selecionaImgAction(ActionEvent event) {
-    	FileChooser fileChooser = new FileChooser();
+    private void selecionaImgAction(ActionEvent event) {
+    	fileChooser = new FileChooser();
     	
-    	File file = fileChooser.showOpenDialog(panelImagemUsuario.getContextMenu());
+    	file = fileChooser.showOpenDialog(panelImagemUsuario.getContextMenu());
         if (file != null) {
            // openFile(file);
         	System.out.println(file.getAbsolutePath().toString());
         	nomeImg.setText(file.getName().toString());
 
         }
-        
-        return file.getAbsolutePath().toString();
     }
     
-    private void okSelecionaImgAction(ActionEvent event) {
-    	 /*
+    @FXML
+    private void okSelecionaImgAction(ActionEvent event){
+    	System.out.println("Dados enviados para o modelo de redes siamesas...");
+    	List<Post> posts;
+    	panelImgs.getChildren().remove(BorderPane.class);
     	
-    	pegar nome arquivo
-    	*/
+    	if(file.exists() && instagramGraffitiDetector.getStatus()) {
+    		try {
+    			Alert alert = new Alert(AlertType.WARNING);
+    			alert.setTitle("Processando dados!");
+    			alert.setHeaderText("Sistema procurando postagens com pichações similares!");
+    	    	alert.setContentText("Por favor, aguarde...");
+    	    	alert.showAndWait();
+	    		posts = instagramGraffitiDetector.siameseModelPredict(file.getAbsolutePath().toString());
+	    		Alert alert2 = new Alert(AlertType.CONFIRMATION);
+		    	alert2.setTitle("Processamento finalizado!");
+		    	alert2.setHeaderText("Sistema concluiu procura!");
+		    	alert2.setContentText("Tudo pronto!");
+		    	alert2.showAndWait();
+		    	displayImages(posts);
+    		} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    	else
+    		System.out.println("Dados faltando...");    	
     }
     
-    /*@FXML
-    private void painelPosts(ActionEvent event) {
+  
+    private void displayImages(List<Post> posts) {
+    	 TextArea descricao= new TextArea();
     	
-    	StackPane sp = new StackPane();
-    	Image image = new Image("C:\\Users\\biaan\\Desktop\\dataset\\com_pichacao (2).jpeg");
-    	imageViewPosts = new ImageView(image);
-        sp.getChildren().add(imageViewPosts);
-    
-		
-    }*/
-   
-    /*
-    private void openFile(File file) {
-        try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                FileChooserSample.class.getName()).log(
-                    Level.SEVERE, null, ex
-                );
+        for (Post post : posts) {
+        	File file = new File(post.getPathAbs());
+        	BorderPane borderPane = new BorderPane();
+	        ImageView imageView = new ImageView();
+            Image image = null;
+			try {
+				image = new Image(new FileInputStream(file));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            imageView.setImage(image);
+            imageView.setImage(image);
+            imageView.setFitHeight(150);
+            imageView.setFitWidth(150);
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(true);
+            imageView.setCache(true);
+            borderPane.setCenter(imageView);
+	            borderPane.setOnMouseClicked((click) -> {	
+	            	descricao.clear();
+	                text.setStyle("-fx-background-color: WHITE");               
+	                descricao.setText(post.getDescricao());
+	                descricao.setEditable(false);
+	                descricao.setWrapText(true);      	        
+                });	           
+	        text.getChildren().add(descricao);
+            borderPane.setStyle("-fx-background-color: WHITE");
+            borderPane.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
+            panelImgs.getChildren().add(borderPane);
+            
+          
         }
     }
-    */
-
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
 		comboData.setItems(optionsComboData);
 		comboTipoEntrada.setItems(optionsComboTipoEntrada);
+		instagramGraffitiDetector = new InstagramGraffitiDetector() ;
 		
-		/*
-		StackPane sp = new StackPane();
-    	Image image = new Image("C:\\Users\\biaan\\Desktop\\dataset\\com_pichacao (2).jpeg");
-    	imageViewPosts = new ImageView(image);
-        sp.getChildren().add(imageViewPosts);*/
-		
-		 instagramGraffitiDetector = new InstagramGraffitiDetector() ;
-		 
+
 	}
 	
 	

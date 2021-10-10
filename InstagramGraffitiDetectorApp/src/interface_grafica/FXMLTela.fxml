@@ -8,26 +8,25 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.TilePane?>
 
 <AnchorPane prefHeight="683.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interface_grafica.FXMLController">
    <children>
-      <TitledPane fx:id="panelLogin" animated="false" layoutX="14.0" layoutY="34.0" prefHeight="159.0" prefWidth="196.0" text="Login Instagram *">
+      <TitledPane fx:id="panelLogin" animated="false" layoutX="16.0" layoutY="45.0" prefHeight="149.0" prefWidth="347.0" text="Entre com seu login do Instagram *">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="133.0" prefWidth="218.0">
                <children>
-                  <Button fx:id="okLogin" layoutX="81.0" layoutY="100.0" mnemonicParsing="false" onAction="#okLoginAction" text="Ok" />
-                  <PasswordField fx:id="textLoginSenha" layoutX="48.0" layoutY="69.0" prefHeight="25.0" prefWidth="133.0" />
-                  <Label layoutX="7.0" layoutY="73.0" text="Senha" />
-                  <Label layoutX="3.0" layoutY="27.0" text="Usuário" />
-                  <TextField fx:id="textLoginUsuario" layoutX="48.0" layoutY="23.0" prefHeight="13.0" prefWidth="134.0" />
+                  <Button fx:id="okLogin" defaultButton="true" layoutX="299.0" layoutY="86.0" mnemonicParsing="false" onAction="#okLoginAction" text="Ok" />
+                  <PasswordField fx:id="textLoginSenha" layoutX="104.0" layoutY="59.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Label layoutX="70.0" layoutY="63.0" text="Senha" />
+                  <Label layoutX="92.0" layoutY="23.0" text="\@" />
+                  <TextField fx:id="textLoginUsuario" layoutX="104.0" layoutY="19.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Label fx:id="mensagemLogin" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="90.0" prefHeight="17.0" prefWidth="224.0" text="Não colocar &quot;@&quot;" textAlignment="CENTER" textFill="#cc4141" />
                </children>
             </AnchorPane>
         </content>
@@ -51,63 +50,78 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TitledPane fx:id="panelLocalizacao" animated="false" layoutX="14.0" layoutY="203.0" prefHeight="101.0" prefWidth="196.0" text="Localização *">
+      <TitledPane fx:id="panelLocalizacao" animated="false" layoutX="14.0" layoutY="203.0" prefHeight="96.0" prefWidth="347.0" text="Localização de interesse para busca de postagens *">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="159.0" prefWidth="196.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="313.0">
                <children>
-                  <TextField fx:id="textLocalizacao" layoutX="24.0" layoutY="14.0" />
-                  <Button fx:id="okLocalizacao" layoutX="82.0" layoutY="45.0" mnemonicParsing="false" onAction="#okLocalizacaoAction" text="Ok" />
+                  <TextField fx:id="textLocalizacao" disable="true" layoutX="104.0" layoutY="9.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Button fx:id="okLocalizacao" defaultButton="true" disable="true" layoutX="299.0" layoutY="35.0" mnemonicParsing="false" onAction="#okLocalizacaoAction" text="Ok" />
+                  <Label fx:id="mensagemLocalizacao" alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="39.0" prefHeight="17.0" prefWidth="217.0" text="Ex: Campinas, São Paulo" textAlignment="CENTER" textFill="#cc4141" />
+                  <Label layoutX="65.0" layoutY="13.0" text="Região" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane fx:id="panelData" animated="false" layoutX="12.0" layoutY="311.0" prefHeight="159.0" prefWidth="196.0" text="Data">
+      <TitledPane fx:id="panelData" animated="false" layoutX="14.0" layoutY="482.0" prefHeight="159.0" prefWidth="347.0" text="Definição de uma data para filtragem das postagens">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="204.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="273.0">
                <children>
-                  <ComboBox fx:id="comboData" layoutX="23.0" layoutY="24.0" prefWidth="150.0" />
-                  <Button fx:id="okData" layoutX="82.0" layoutY="100.0" mnemonicParsing="false" onAction="#okDataAction" text="Ok" />
-                  <DatePicker fx:id="dataSelector" layoutX="23.0" layoutY="67.0" prefHeight="15.0" prefWidth="150.0" />
+                  <ComboBox fx:id="comboData" disable="true" layoutX="98.0" layoutY="20.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Button fx:id="okData" defaultButton="true" disable="true" layoutX="299.0" layoutY="94.0" mnemonicParsing="false" onAction="#okDataAction" text="Ok" />
+                  <DatePicker fx:id="dataSelector" disable="true" layoutX="98.0" layoutY="67.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Label layoutX="53.0" layoutY="24.0" text="Quando" />
+                  <Label layoutX="70.0" layoutY="71.0" text="Data" />
+                  <Label fx:id="mensagemData" alignment="CENTER" contentDisplay="CENTER" layoutX="56.0" layoutY="98.0" prefHeight="17.0" prefWidth="224.0" textAlignment="CENTER" textFill="#41cd44" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane fx:id="panelTipoEntrada" animated="false" layoutX="12.0" layoutY="479.0" prefHeight="159.0" prefWidth="198.0" text="Hashtag/Perfil *">
+      <TitledPane fx:id="panelTipoEntrada" animated="false" layoutX="13.0" layoutY="313.0" prefHeight="149.0" prefWidth="347.0" text="Hashtag/Perfil a ser examinado *">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="196.0">
                <children>
-                  <ComboBox fx:id="comboTipoEntrada" layoutX="23.0" layoutY="24.0" prefWidth="150.0" />
-                  <TextField fx:id="textTipoEntrada" layoutX="24.0" layoutY="60.0" />
-                  <Button fx:id="okTipoEntrada" layoutX="83.0" layoutY="94.0" mnemonicParsing="false" onAction="#okTipoEntradaAction" text="Ok" />
+                  <ComboBox fx:id="comboTipoEntrada" disable="true" layoutX="99.0" layoutY="22.0" prefHeight="25.0" prefWidth="181.0" />
+                  <TextField fx:id="textTipoEntrada" disable="true" layoutX="98.0" layoutY="62.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Button fx:id="okTipoEntrada" defaultButton="true" disable="true" layoutX="299.0" layoutY="87.0" mnemonicParsing="false" onAction="#okTipoEntradaAction" text="Ok" />
+                  <Label fx:id="mensagemTipoEntrada" alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="91.0" prefHeight="17.0" prefWidth="224.0" text="Não colocar &quot;@&quot; / &quot;#&quot;" textAlignment="CENTER" textFill="#cc4141" />
+                  <Label layoutX="74.0" layoutY="26.0" text="Tipo" />
+                  <Label layoutX="72.0" layoutY="66.0" text="\@/#" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <Button fx:id="enviarRequisicao" layoutX="160.0" layoutY="644.0" mnemonicParsing="false" onAction="#enviarRequisicaoAction" text="Enviar" />
-      <ScrollPane layoutX="254.0" layoutY="207.0" prefHeight="299.0" prefWidth="354.0">
+      <Button fx:id="enviarRequisicao" defaultButton="true" disable="true" layoutX="245.0" layoutY="649.0" mnemonicParsing="false" onAction="#enviarRequisicaoAction" prefHeight="25.0" prefWidth="118.0" text="Enviar" textAlignment="CENTER" wrapText="true" />
+      <ScrollPane fx:id="panelPosts" layoutX="431.0" layoutY="203.0" prefHeight="458.0" prefWidth="475.0">
          <content>
-            <ImageView fx:id="imageViewPosts" fitHeight="297.0" fitWidth="352.0" pickOnBounds="true" preserveRatio="true" />
+            <TilePane fx:id="panelImgs" prefHeight="512.0" prefWidth="465.0" />
          </content>
       </ScrollPane>
-      <TitledPane fx:id="panelImagemUsuario" animated="false" layoutX="254.0" layoutY="34.0" prefHeight="159.0" prefWidth="196.0" text="Escolher imagem de comparação *">
+      <TitledPane fx:id="panelImagemUsuario" animated="false" layoutX="431.0" layoutY="42.0" prefHeight="149.0" prefWidth="202.0" text="Imagem para comparação *">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="111.0" prefWidth="290.0">
                <children>
-                  <Label layoutX="6.0" layoutY="32.0" text="Imagem" />
-                  <Button layoutX="88.0" layoutY="94.0" mnemonicParsing="false" text="Ok" />
-                  <Button fx:id="selecionaImg" layoutX="59.0" layoutY="28.0" mnemonicParsing="false" onAction="#selecionaImgAction" text="Selecionar arquivo..." />
-                  <Label fx:id="nomeImg" alignment="CENTER" layoutX="18.0" layoutY="67.0" prefHeight="17.0" prefWidth="174.0" textAlignment="CENTER" textFill="#41cd44" />
+                  <Label layoutX="14.0" layoutY="29.0" text="Imagem" />
+                  <Button fx:id="okSelecionaImg" defaultButton="true" disable="true" layoutX="162.0" layoutY="88.0" mnemonicParsing="false" onAction="#okSelecionaImgAction" text="Ok" />
+                  <Button fx:id="selecionaImg" disable="true" layoutX="66.0" layoutY="25.0" mnemonicParsing="false" onAction="#selecionaImgAction" prefHeight="17.0" prefWidth="128.0" text="Selecionar arquivo..." />
+                  <Label fx:id="nomeImg" alignment="CENTER" layoutX="10.0" layoutY="62.0" prefHeight="17.0" prefWidth="180.0" textAlignment="CENTER" textFill="#41cd44" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <Separator layoutX="227.0" layoutY="27.0" orientation="VERTICAL" prefHeight="655.0" prefWidth="7.0" />
-      <Label layoutX="471.0" layoutY="176.0" text=" * campos obrigatórios " />
-      <TilePane fx:id="panelProcessandoDados" layoutX="482.0" layoutY="44.0" prefHeight="87.0" prefWidth="103.0">
-         <children>
-            <Label text="Processando dados" />
-            <ProgressIndicator fx:id="processandoDadosProgressIndicator" progress="0.0" />
-         </children>
-      </TilePane>
+      <Separator layoutX="394.0" layoutY="27.0" orientation="VERTICAL" prefHeight="655.0" prefWidth="7.0" />
+      <Label layoutX="16.0" layoutY="653.0" text="(*) campos obrigatórios " textFill="#cc4141" />
+      <TitledPane animated="false" layoutX="649.0" layoutY="42.0" prefHeight="149.0" prefWidth="256.0" text="Descrição do Post selecionado">
+        <content>
+          <AnchorPane fx:id="panelDescricao" minHeight="0.0" minWidth="0.0" prefHeight="149.0" prefWidth="256.0">
+               <children>
+                  <ScrollPane fx:id="panelScrollText" prefHeight="126.0" prefWidth="256.0">
+                     <content>
+                        <TilePane fx:id="text" prefHeight="124.0" prefWidth="250.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>

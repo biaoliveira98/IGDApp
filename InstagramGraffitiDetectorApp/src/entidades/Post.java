@@ -9,8 +9,10 @@ public class Post {
     private String descricao;
     private LocalizacaoPost localizacao;
     private Double porcentagemSimilaridade;
+    private String pathAbs;
 
-    @Override
+
+	@Override
     public String toString() {
         return "Post{" +
                 "path='" + path + '\'' +
@@ -25,7 +27,7 @@ public class Post {
         return path;
     }
 
-    public void setPath(String path) {
+	public void setPath(String path) {
         this.path = path;
     }
 
@@ -63,4 +65,12 @@ public class Post {
     public void setPorcentagemSimilaridade(Double porcentagemSimilaridade) {
         this.porcentagemSimilaridade = porcentagemSimilaridade;
     }
+
+    public String getPathAbs() {
+		return pathAbs;
+	}
+
+	public void setPathAbs(String pathAbs) {
+		this.pathAbs = pathAbs;
+	}
 }
